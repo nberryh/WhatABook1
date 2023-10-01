@@ -83,13 +83,14 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (e
     });
 
     // Add basic error handling for invalid customerID
+    const invalidCustomerId = 'c9999';
     db.collection('wishlistitems').findOne({ customerId: invalidCustomerId}, (err, wishlist) => {
         if (err) {
             console.error('Error fetching wishlist:', err);
         } else {
             if (wishlist) {
                 console.log(`Wishlist for Customer ${invalidCustomerId}:`);
-                wishlist.bokId.forEach((bookId) => {
+                wishlist.bookId.forEach((bookId) => {
                     db.collection('books').findOne({ bookId: bookId }, (err, book) => {
                         if (err) {
                             console.error('Error fetching book from wishlist:', err);

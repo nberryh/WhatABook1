@@ -5,9 +5,6 @@
     Description: Script for WhatABook
  */
 
-// Import the MongoDB driver
-const MongoClient = require('mongodb').MongoClient;
-
 // Connection URL
 const url = 'mongodb+srv://whatabook_user:s3cret@cluster0.wmphxtw.mongodb.net/';
 
@@ -47,6 +44,9 @@ async function initDatabase() {
         // Connect to the MongoDB server
         await client.connect();
 
+        // Define the database name
+        const dbName = 'WhatABook';
+
         // Select the database
         const db = client.db(dbName);
 
@@ -62,7 +62,7 @@ async function initDatabase() {
 
         // Insert data into collections
         await booksCollection.insertMany(booksData);
-        await customersCollection.insertMany(customersData);
+        await customerCollection.insertMany(customersData);
         await wishlistItemsCollection.insertMany(wishlistItemsData);
 
         console.log('Database initialized.');
