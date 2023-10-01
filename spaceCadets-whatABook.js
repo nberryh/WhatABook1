@@ -9,7 +9,7 @@
 const MongoClient = require('mongodb').MongoClient;
 
 // Connection URL
-const url = 'mongodb+srv://whatabook_user:s3cret@cluster0.wmphxtw.mongodb.net/';
+const url = 'mongodb+srv://whatabook_admin:s3cret@cluster0.wmphxtw.mongodb.net/';
 
 // Book list
 const booksData = [
@@ -79,12 +79,12 @@ async function initDatabase() {
 
         // Create collections
         const booksCollection = db.collection('books');
-        const customerCollection = db.collection('customers');
+        const customersCollection = db.collection('customers');
         const wishlistItemsCollection = db.collection('wishlistitems');
 
         // Insert data into collections
         await booksCollection.insertMany(booksData);
-        await customerCollection.insertMany(customersData);
+        await customersCollection.insertMany(customersData);
         await wishlistItemsCollection.insertMany(wishlistItemsData);
 
         console.log('Database initialized.');
