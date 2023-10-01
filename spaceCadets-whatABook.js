@@ -61,15 +61,15 @@ async function initDatabase() {
         const existingCollections = collections.map((collection) => collection.name);
 
         if (existingCollections.includes('books')) {
-            await db.dropCollection('books');
+            await db.dropCollection('books').drop();
         }
 
         if (existingCollections.includes('customers')) {
-            await db.dropCollection('customers');
+            await db.dropCollection('customers').drop();
         }
 
         if (existingCollections.includes('wishlistitems')) {
-            await db.dropCollection('wishlistitems');
+            await db.dropCollection('wishlistitems').drop();
         }
 
         // Drop existing collections
@@ -96,4 +96,4 @@ async function initDatabase() {
 }
 
 // Call the initDatabase function with the client
-initDatabase(client);
+initDatabase();
