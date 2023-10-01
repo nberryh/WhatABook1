@@ -29,16 +29,16 @@ const booksData = [
 
 // Customer information
 const customersData = [
-    { customerId: 'c1001', firstName: 'Olivia', lastName: 'Thompson' },
-    { customerId: 'c1002', firstName: 'Mark', lastName: 'Anderson' },
-    { customerId: 'c1003', firstName: 'Bob', lastName: 'Builder' },
+    { customerId: 'c1007', firstName: 'Olivia', lastName: 'Thompson' },
+    { customerId: 'c1008', firstName: 'Mark', lastName: 'Anderson' },
+    { customerId: 'c1009', firstName: 'Bob', lastName: 'Builder' },
 ];
 
 // Wish list for customer
 const wishlistItemsData = [
-    { customerId: 'c1001', bookId: ['s1009', 's1010', 's1011', 's1012'] },
-    { customerId: 'c1002', bookId: ['s1005', 's1006', 's1007', 's1008'] },
-    { customerId: 'c1003', bookId: ['s1001', 's1002', 's1003', 's1004'] },
+    { customerId: 'c1007', bookId: ['s1009', 's1010', 's1011', 's1012'] },
+    { customerId: 'c1008', bookId: ['s1005', 's1006', 's1007', 's1008'] },
+    { customerId: 'c1009', bookId: ['s1001', 's1002', 's1003', 's1004'] },
 ];
 
 // Function to initialize the database
