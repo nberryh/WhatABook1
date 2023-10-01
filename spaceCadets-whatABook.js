@@ -93,7 +93,7 @@ async function initDatabase() {
     } finally {
         client.close();
     }
-}
+};
 
 // Call the initDatabase function with the client
 initDatabase();

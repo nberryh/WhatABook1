@@ -108,9 +108,9 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (e
             } else {
                 console.log(`Wishlist for Customer ${invalidCustomerId} not found.`);
             }
+
+            // Close the MongoDB connection
+            client.close();
         }
     });
-
-    // Close the MongoDB connection
-    client.close();
 });
