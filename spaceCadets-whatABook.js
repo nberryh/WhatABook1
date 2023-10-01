@@ -5,6 +5,9 @@
     Description: Script for WhatABook
  */
 
+// Import the MongoDB driver
+const MongoClient = require('mongodb').MongoClient;
+
 // Connection URL
 const url = 'mongodb+srv://whatabook_user:s3cret@cluster0.wmphxtw.mongodb.net/';
 
@@ -37,6 +40,9 @@ const wishlistItemsData = [
     { customerId: 'c1008', bookId: ['s1005', 's1006', 's1007', 's1008'] },
     { customerId: 'c1009', bookId: ['s1001', 's1002', 's1003', 's1004'] },
 ];
+
+// Create a new MongoClient instance
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Function to initialize the database
 async function initDatabase() {
@@ -73,4 +79,5 @@ async function initDatabase() {
     }
 }
 
-initDatabase();
+// Call the initDatabase function with the client
+initDatabase(client);
