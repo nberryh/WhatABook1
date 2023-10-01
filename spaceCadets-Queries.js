@@ -11,7 +11,7 @@ const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb+srv://whatabook_user:s3cret@cluster0.wmphxtw.mongodb.net/';
 
 // Connect to the MongoDB server
-MongoClient.connect(url, { useNewParser: true, useUnifiedTopology: true }, (err, client) => {
+MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
     if (err) {
         console.error('Error connecting to MongDB:', err);
         return;
@@ -61,7 +61,7 @@ MongoClient.connect(url, { useNewParser: true, useUnifiedTopology: true }, (err,
         } else {
             if (wishlist) {
                 console.log(`Wishlist for Customer ${customerId}:`);
-                wishlist.bokId.forEach((bookId) => {
+                wishlist.bookId.forEach((bookId) => {
                     db.collection('books').findOne({ bookId: bookId }, (err, book) => {
                         if (err) {
                             console.error('Error fetching book from wishlist:', err);
@@ -105,7 +105,7 @@ MongoClient.connect(url, { useNewParser: true, useUnifiedTopology: true }, (err,
                     });
                 });
             } else {
-                console.log(`Wishlist for Customer ${invalidCustomerIdcustomerId} not found.`);
+                console.log(`Wishlist for Customer ${invalidCustomerId} not found.`);
             }
         }
     });
