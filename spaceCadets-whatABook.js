@@ -8,7 +8,7 @@
 // Import the MongoDB driver
 const MongoClient = require('mongodb').MongoClient;
 
-// Conection URL
+// Connection URL
 const url = 'mongodb+srv://whatabook_user:s3cret@cluster0.wmphxtw.mongodb.net/';
 
 // Book list
