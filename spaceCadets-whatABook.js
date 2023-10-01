@@ -34,24 +34,27 @@ async function initDatabase() {
             await db.dropCollection('customers').drop();
         }
 
-        if (existingCollections.includes('wishListItems')) {
-            await db.dropCollection('wishListItems').drop();
+        if (existingCollections.includes('wishlistitems')) {
+            await db.dropCollection('wishlistitems').drop();
         }
 
         // Drop existing collections
         await db.dropCollection('books');
         await db.dropCollection('customers');
-        await db.dropCollection('wishListItems');
+        await db.dropCollection('wishlistitems');
 
         // Create collections
         const booksCollection = db.collection('books');
         const customersCollection = db.collection('customers');
-        const wishListItemsCollection = db.collection('wishListItems');
+        const wishlistItemsCollection = db.collection('wishlistitems');
+
+        // Create the "User" collection
+        const userCollection = db.collection('User');
 
         // Insert data into collections
         await booksCollection.insertMany(booksData);
         await customersCollection.insertMany(customersData);
-        await wishListItemsCollection.insertMany(wishListItemsData);
+        await wishlistItemsCollection.insertMany(wishlistItemsData);
 
         console.log('Database initialized.');
     } catch (err) {
@@ -85,7 +88,7 @@ const customersData = [
 ];
 
 // Wish list for customer
-const wishListItemsData = [
+const wishlistItemsData = [
     { customerId: 'c1007', bookId: ['s1009', 's1010', 's1011', 's1012'] },
     { customerId: 'c1008', bookId: ['s1005', 's1006', 's1007', 's1008'] },
     { customerId: 'c1009', bookId: ['s1001', 's1002', 's1003', 's1004'] },
