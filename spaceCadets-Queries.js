@@ -8,7 +8,7 @@
 const MongoClient = require('mongodb').MongoClient;
 
 // Connection url 
-const url = 'mongodb+srv://whatabook_user:s3cret@cluster0.wmphxtw.mongodb.net/';
+const url = 'mongodb+srv://whatABook_user:s3cret@cluster0.wmphxtw.mongodb.net/whatABookDB';
 
 // Connect to the MongoDB server
 MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {

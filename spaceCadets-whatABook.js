@@ -9,7 +9,7 @@
 const { MongoClient } = require('mongodb');
 
 // Connection URL
-const url = 'mongodb+srv://whatabook_admin:s3cret@cluster0.wmphxtw.mongodb.net/';
+const url = 'mongodb+srv://whatABook_user:s3cret@cluster0.wmphxtw.mongodb.net/whatABookDB';
 const dbName = 'WhatABook';
 
 // Create a new MongoClient instance
