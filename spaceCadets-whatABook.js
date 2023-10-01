@@ -56,6 +56,22 @@ async function initDatabase() {
         // Select the database
         const db = client.db(dbName);
 
+        // Check if collections exist before dropping
+        const collections = await db.listCollections().toArray();
+        const existingCollections = collections.map((collection) => collection.name);
+
+        if (existingCollections.includes('books')) {
+            await db.dropCollection('books');
+        }
+
+        if (existingCollections.includes('customers')) {
+            await db.dropCollection('customers');
+        }
+
+        if (existingCollections.includes('wishlistitems')) {
+            await db.dropCollection('wishlistitems');
+        }
+
         // Drop existing collections
         await db.dropCollection('books');
         await db.dropCollection('customers');
