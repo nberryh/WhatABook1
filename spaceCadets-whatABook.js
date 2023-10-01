@@ -6,10 +6,60 @@
  */
 
 // Import the MongoDB driver
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 
 // Connection URL
 const url = 'mongodb+srv://whatabook_admin:s3cret@cluster0.wmphxtw.mongodb.net/';
+const dbName = 'WhatABook';
+
+// Create a new MongoClient instance
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Function to initialize the database
+async function initDatabase() {
+    try {
+        // Connect to the MongoDB server
+        await client.connect();
+        const db = client.db(dbName);
+
+        // Check if collections exist before dropping
+        const collections = await db.listCollections().toArray();
+        const existingCollections = collections.map((collection) => collection.name);
+
+        if (existingCollections.includes('books')) {
+            await db.dropCollection('books').drop();
+        }
+
+        if (existingCollections.includes('customers')) {
+            await db.dropCollection('customers').drop();
+        }
+
+        if (existingCollections.includes('wishListItems')) {
+            await db.dropCollection('wishListItems').drop();
+        }
+
+        // Drop existing collections
+        await db.dropCollection('books');
+        await db.dropCollection('customers');
+        await db.dropCollection('wishListItems');
+
+        // Create collections
+        const booksCollection = db.collection('books');
+        const customersCollection = db.collection('customers');
+        const wishListItemsCollection = db.collection('wishListItems');
+
+        // Insert data into collections
+        await booksCollection.insertMany(booksData);
+        await customersCollection.insertMany(customersData);
+        await wishListItemsCollection.insertMany(wishListItemsData);
+
+        console.log('Database initialized.');
+    } catch (err) {
+        console.error('Error initializing database:', err);
+    } finally {
+        client.close();
+    }
+};
 
 // Book list
 const booksData = [
@@ -35,65 +85,11 @@ const customersData = [
 ];
 
 // Wish list for customer
-const wishlistItemsData = [
+const wishListItemsData = [
     { customerId: 'c1007', bookId: ['s1009', 's1010', 's1011', 's1012'] },
     { customerId: 'c1008', bookId: ['s1005', 's1006', 's1007', 's1008'] },
     { customerId: 'c1009', bookId: ['s1001', 's1002', 's1003', 's1004'] },
 ];
-
-// Create a new MongoClient instance
-const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// Function to initialize the database
-async function initDatabase() {
-    try {
-        // Connect to the MongoDB server
-        await client.connect();
-
-        // Define the database name
-        const dbName = 'WhatABook';
-
-        // Select the database
-        const db = client.db(dbName);
-
-        // Check if collections exist before dropping
-        const collections = await db.listCollections().toArray();
-        const existingCollections = collections.map((collection) => collection.name);
-
-        if (existingCollections.includes('books')) {
-            await db.dropCollection('books').drop();
-        }
-
-        if (existingCollections.includes('customers')) {
-            await db.dropCollection('customers').drop();
-        }
-
-        if (existingCollections.includes('wishlistitems')) {
-            await db.dropCollection('wishlistitems').drop();
-        }
-
-        // Drop existing collections
-        await db.dropCollection('books');
-        await db.dropCollection('customers');
-        await db.dropCollection('wishlistitems');
-
-        // Create collections
-        const booksCollection = db.collection('books');
-        const customersCollection = db.collection('customers');
-        const wishlistItemsCollection = db.collection('wishlistitems');
-
-        // Insert data into collections
-        await booksCollection.insertMany(booksData);
-        await customersCollection.insertMany(customersData);
-        await wishlistItemsCollection.insertMany(wishlistItemsData);
-
-        console.log('Database initialized.');
-    } catch (err) {
-        console.error('Error initializing database:', err);
-    } finally {
-        client.close();
-    }
-};
 
 // Call the initDatabase function with the client
 initDatabase();
