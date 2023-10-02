@@ -9,7 +9,7 @@
 const { MongoClient } = require('mongodb');
 
 // Connection URL
-const url = 'mongodb+srv://whatABook_user:s3cret@cluster0.wmphxtw.mongodb.net/whatABookDB';
+const url = 'mongodb+srv://WhatABook_user:s3cret@whatabook.0pwpong.mongodb.net/';
 const dbName = 'WhatABook';
 
 // Create a new MongoClient instance
@@ -25,7 +25,7 @@ async function initDatabase() {
         // Check if collections exist before dropping
         const collections = await db.listCollections().toArray();
         const existingCollections = collections.map((collection) => collection.name);
-
+/*
         if (existingCollections.includes('books')) {
             await db.dropCollection('books').drop();
         }
@@ -42,7 +42,7 @@ async function initDatabase() {
         await db.dropCollection('books');
         await db.dropCollection('customers');
         await db.dropCollection('wishlistitems');
-
+*/
         // Create collections
         const booksCollection = db.collection('books');
         const customersCollection = db.collection('customers');
