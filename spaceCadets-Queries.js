@@ -171,4 +171,7 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (e
         }
     );
 
+    // Close the MongoDB connection
+    client.close();
+
 });
