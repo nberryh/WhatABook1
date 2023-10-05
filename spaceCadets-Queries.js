@@ -1,7 +1,7 @@
 /**
 	Title: spaceCadets-Queries.js
     Author: Danielle Taplin, Nolan Berryhill
-    Date: 01 October 2023
+    Date: 08 October 2023
     Description: Queries for WhatABook
  */
 
@@ -108,9 +108,70 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (e
             } else {
                 console.log(`Wishlist for Customer ${invalidCustomerId} not found.`);
             }
-
-            // Close the MongoDB connection
-            client.close();
         }
     });
+
+    // Display a customer's wishlist by customerId        
+    db.collection('wishlistitems').findOne({ customerId: customerId}, (err, wishlist) => {
+        if (err) {
+            console.error('Error fetching wishlist:', err);
+        } else {
+            if (wishlist) {
+                console.log(`Wishlist for Customer ${customerId}:`);
+                wishlist.bookId.forEach((bookId) => {
+                    db.collection('books').findOne({ bookId: bookId }, (err, book) => {
+                        if (err) {
+                            console.error('Error fetching book from wishlist:', err);
+                        } else {
+                            if (book) {
+                                console.log(`Title: ${book.title}`);
+                                console.log(`Author: ${book.author}`);
+                                console.log('--------------------------');
+                            } else {
+                                console.log(`Book with bookId ${bookId} not found.`);
+                            }
+                        }
+                    });
+                });
+            } else {
+                console.log(`Wishlist for Customer ${invalidCustomerId} not found.`);
+            }
+        }
+    });
+
+    // Add a book to a customer's wishlist
+    const customerIdToAdd = 'c1008';
+    const bookIdToAdd = 's1013';
+        
+    db.collection('wishlistitems').updateOne(
+        { customerId: customerIdToAdd },
+        { $push: { bookId: bookIdToAdd } },
+        (err, result) => {
+            if (err) {
+                console.error('Error adding book to wishlist:', err);
+            } else {
+                console.log(`Book with bookId ${bookIdToAdd} added to wishlist for Customer ${customerIdToAdd}.`);
+            }
+        }
+    );
+
+    // Remove a book to a customer's wishlist
+    const customerIdToRemove = 'c1008';
+    const bookIdToRemove = 's1005';
+            
+    db.collection('wishlistitems').updateOne(
+        { customerId: customerIdToRemove },
+        { $pull: { bookId: bookIdToRemove } },
+        (err, result) => {
+            if (err) {
+                console.error('Error removing book to wishlist:', err);
+            } else {
+                    console.log(`Book with bookId ${bookIdToRemove} removed to wishlist for Customer ${customerIdToRemove}.`);
+            }
+        }
+    );
+
+    // Close the MongoDB connection
+    client.close();
+
 });
